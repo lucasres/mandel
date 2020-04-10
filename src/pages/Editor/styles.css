@@ -1,0 +1,23 @@
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    
+}
+
+.icon-container {
+    padding: 14px;
+    color: rgba(255, 255, 255, 0.60);
+    transition: all ease .25s;
+}
+
+.icon-container:hover {
+    color: rgba(255, 255, 255, 0.90);
+}
+
+.menu {
+    background: #303952;
+}
