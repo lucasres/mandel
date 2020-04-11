@@ -24,11 +24,6 @@ export default function Editor() {
         <div className="wrapper">
             <div className="row menu">
                 <div className="col">
-                    <Icon>
-                        <FiCode />
-                    </Icon>
-                </div>
-                <div className="col">
                     <Icon onClick={handleExec}>
                         <FiPlay />
                     </Icon>
