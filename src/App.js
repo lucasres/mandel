@@ -6,17 +6,20 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
+import { Provider } from "react-redux";
+import ConfigStore from "./store";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path='/' exact component={Editor}></Route>
-        <Route path='/config' exact component={Config}></Route>
-      </Switch>
-    </Router>
+    <Provider store={ConfigStore}>
+      <Router>
+        <Switch>
+          <Route path='/' exact component={Editor}></Route>
+          <Route path='/config' exact component={Config}></Route>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 

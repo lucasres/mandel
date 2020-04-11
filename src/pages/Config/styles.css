@@ -65,3 +65,7 @@ p {
     width: 100%;
     background: rgba(255,255,255,0.1);
 }
+
+.group-input {
+    margin-bottom: 14px;
+}
