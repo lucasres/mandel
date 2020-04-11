@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiArrowLeft } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
+import { DEFAULT_TYPES } from "../../utils/types";
 import './styles.css';
 import { Link } from 'react-router-dom';
 const { remote } = window.require('electron');
@@ -38,6 +39,12 @@ export default function Config() {
         }
     }
 
+    const handleChangeType = (e) => {
+        const {value} = e.target;
+        setType(value);
+        setCommand(DEFAULT_TYPES[value].config.command);
+    }
+
     return (
         <div className="config-wrapper">
             <div className="row h100">
@@ -58,7 +65,7 @@ export default function Config() {
                     <div className="group-input">
                         <p>Framework:</p>
                         <select className="select-input"
-                            onChange={(e) => { setType(e.target.value) }}
+                            onChange={(e) => { handleChangeType(e) }}
                             defaultValue={type}
                         >
                             {

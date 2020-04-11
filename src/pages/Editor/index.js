@@ -1,24 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiPlay, FiSettings, FiCode } from "react-icons/fi";
 import Icon from "../../components/Icon";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/mode-php";
+import "ace-builds/src-noconflict/mode-python";
 import RunService from "../../services/run";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import './styles.css';
 
 export default function Editor() {
-    const [code, setCode] = useState(`<?php\n\t`);
+    const config = useSelector(state => state);
+    const [code, setCode] = useState('');
     const [result, setResult] = useState('');
+    const [type, setType] = useState(config.current_type);
+    const [mode,setMode] = useState('');
 
     const handleExec = () => {
         let rs = RunService.exec(code);
         rs.then((rs)=>{
-            setResult(`<?php\n${rs.stdout}\n${rs.stderr}`);
+            let pre = '';
+            if(mode === 'php'){
+                pre = '<?php\n';
+            }
+            setResult(`${pre}${rs.stdout}\n${rs.stderr}`);
         });
     }
+
+    useEffect(()=>{
+        if(type==='laravel'){
+            setMode('php');
+            setCode(`<?php\n\t`);
+        }
+        if(type==='django'){
+            setMode('python');
+            setCode(``);
+        }
+    },[type]);
 
     return (
         <div className="wrapper">
@@ -41,7 +61,7 @@ export default function Editor() {
                     <AceEditor
                         style={{ width: '100%', height: '100%' }}
                         className="display-editor"
-                        mode="php"
+                        mode={mode}
                         theme="dracula"
                         fontSize={16}
                         showPrintMargin={true}
@@ -60,7 +80,7 @@ export default function Editor() {
                     <AceEditor
                         style={{ width: '100%', height: '100%' }}
                         className="display-editor"
-                        mode="php"
+                        mode={mode}
                         theme="dracula"
                         placeholder="//Result here"
                         fontSize={16}

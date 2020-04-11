@@ -1,4 +1,4 @@
-import { phpParse } from "../parse";
+import { phpParse, pythonParse } from "../parse";
 import store from "../../store";
 const process = window.require('child_process');
 const fs = window.require('fs');
@@ -20,10 +20,14 @@ const RunService = {
         if(config_state.current_type === 'laravel'){
             value = phpParse(value);
             file_name = 'temp.php';
+        } else if (config_state.current_type === 'django') {
+            value = pythonParse(value);
+            file_name = 'temp.py';
         } else {
             throw new Error('not implemented');
         }
         let file_path = path.join(current_path, file_name);
+        console.log(value);
         await writeFile(file_path,value);
         // let command = `cat ${file_path} | php /home/lucas/source/cev_flow/application/artisan tinker`;
         let command = current.command.replace('{file_path}',file_path);

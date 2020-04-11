@@ -1,11 +1,15 @@
 import { createStore } from "redux";
 
 const INITIAL_STATE = {
-    current_type: 'laravel',
-    avaliable_types:['laravel'],
+    current_type: 'django',
+    avaliable_types:['laravel','django'],
     laravel: {
         command:'cat {file_path} | php {project_path}/artisan tinker',
         project_path: '',
+    },
+    django:{
+        command:'python3 {project_path}/manage.py shell < {file_path}',
+        project_path:'',
     }
     //TODO: add outher frameworks
 }
