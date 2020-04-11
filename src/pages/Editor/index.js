@@ -5,6 +5,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/mode-php";
 import RunService from "../../services/run";
+import { Link } from "react-router-dom";
 
 import './styles.css';
 
@@ -32,11 +33,13 @@ export default function Editor() {
                         <FiPlay />
                     </Icon>
                 </div>
-                <div className="col">
-                    <Icon>
-                        <FiSettings />
-                    </Icon>
-                </div>
+                <Link to="/config">
+                    <div className="col">
+                        <Icon>
+                            <FiSettings />
+                        </Icon>
+                    </div>
+                </Link>
             </div>
             <div className="row content-editors">
                 <div className="col editor">
