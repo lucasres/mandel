@@ -2,7 +2,10 @@
   "name": "mandel",
   "version": "0.1.0",
   "private": true,
-  "author": "Lucas Resende de Sousa Amaral",
+  "author": {
+    "name":"Lucas Resende de Sousa Amaral",
+    "email": "lucasresone@gmail.com"
+  },
   "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -38,6 +41,12 @@
     ],
     "directories": {
       "buildResources": "assets"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ]
     }
   },
   "eslintConfig": {
