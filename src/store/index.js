@@ -11,10 +11,14 @@ const INITIAL_STATE = {
 }
 
 function configs(state=INITIAL_STATE,action){
-    console.log(state,action);
     switch(action.type){
         case 'CHANGE_TYPE':
             return {...state,current_type:action.value}; 
+        case 'CHANGE_COMMAND':
+            let newState = state;
+            newState[state.current_type].command = action.value
+            console.log(newState);
+            return newState;
         default:
             return state;
     }

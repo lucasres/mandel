@@ -21,7 +21,7 @@ export default function Config() {
             dispatch({type:'CHANGE_TYPE',value:type});
         }
         if(command){
-            dispatch({type:'CHANGE_CONFIG_COMMAD',value:command});
+            dispatch({type:'CHANGE_COMMAND',value:command});
         }
         if(projectPath){
             dispatch({type:'CHANGE_CONFIG_COMMAD',value:projectPath});
