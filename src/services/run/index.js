@@ -16,7 +16,7 @@ const RunService = {
     exec: async (value) => {
         let config_state = store.getState();
         let file_name = '';
-        let current = config_state.current_type;
+        let current = config_state[config_state.current_type];
         if(config_state.current_type === 'laravel'){
             value = phpParse(value);
             file_name = 'temp.php';
@@ -26,7 +26,8 @@ const RunService = {
         let file_path = path.join(current_path, file_name);
         await writeFile(file_path,value);
         // let command = `cat ${file_path} | php /home/lucas/source/cev_flow/application/artisan tinker`;
-        let command = config_state[current].command.replace('{file_path}',file_path);
+        let command = current.command.replace('{file_path}',file_path);
+        command = command.replace('{project_path}',current.project_path);
         let rs = await exec(command);
         return rs;
     }
