@@ -10,12 +10,13 @@ import './styles.css';
 
 export default function Editor() {
     const [code, setCode] = useState(`<?php\n\t`);
+    const [result, setResult] = useState('');
 
     const handleExec = () => {
         let rs = RunService.exec(code);
         rs.then((rs)=>{
-            console.log(rs.toString());
-        })
+            setResult(`<?php\n${rs.stdout}\n${rs.stderr}`);
+        });
     }
 
     return (
@@ -68,6 +69,7 @@ export default function Editor() {
                         showPrintMargin={true}
                         showGutter={true}
                         highlightActiveLine={true}
+                        value={result}
                         setOptions={{
                             enableBasicAutocompletion: false,
                             enableLiveAutocompletion: false,
