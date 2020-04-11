@@ -69,3 +69,18 @@ p {
 .group-input {
     margin-bottom: 14px;
 }
+
+.select-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.10);
+    border: 0;
+    border-radius: 6px;
+    outline: none;
+    color: #fff;
+}
+
+.select-input option {
+    color: #000;
+}

@@ -10,41 +10,23 @@ const writeFile = util.promisify(fs.writeFile);
 const exec = util.promisify(process.exec);
 // const ipcRenderer = electron.ipcRenderer;
 
-String.prototype.formatUnicorn = String.prototype.formatUnicorn || function () {
-    "use strict";
-    var str = this.toString();
-    if (arguments.length) {
-        var t = typeof arguments[0];
-        var key;
-        var args = ("string" === t || "number" === t) ?
-            Array.prototype.slice.call(arguments)
-            : arguments[0];
 
-        for (key in args) {
-            str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
-        }
-    }
-
-    return str;
-};
 
 const RunService = {
-    // exec: async (value) => {
-    //     value = phpParse(value);
-    //     let file_path = path.join(current_path, 'temp.php');
-    //     await writeFile(file_path,value);
-    //     let command = `cat ${file_path} | php /home/lucas/source/cev_flow/application/artisan tinker`;
-    //     // let command = `cat ${file_path} | docker exec sso-server-php-fpm php artisan tinker`;
-    //     console.log(command);
-    //     return process.execSync(command);
-    // }
     exec: async (value) => {
         let config_state = store.getState();
-        value = phpParse(value);
-        let file_path = path.join(current_path, 'temp.php');
+        let file_name = '';
+        let current = config_state.current_type;
+        if(config_state.current_type === 'laravel'){
+            value = phpParse(value);
+            file_name = 'temp.php';
+        } else {
+            throw new Error('not implemented');
+        }
+        let file_path = path.join(current_path, file_name);
         await writeFile(file_path,value);
         // let command = `cat ${file_path} | php /home/lucas/source/cev_flow/application/artisan tinker`;
-        let command = config_state.command.replace('{file_path}',file_path);
+        let command = config_state[current].command.replace('{file_path}',file_path);
         let rs = await exec(command);
         return rs;
     }

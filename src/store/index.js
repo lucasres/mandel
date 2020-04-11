@@ -1,13 +1,20 @@
 import { createStore } from "redux";
 
-const INITIAL_STATE = {command:'docker exec -i cev-flow-php-fpm php artisan tinker < {file_path}'}
+const INITIAL_STATE = {
+    current_type: 'laravel',
+    avaliable_types:['laravel','django'],
+    laravel: {
+        command:'docker exec -i cev-flow-php-fpm php artisan tinker < {file_path}',
+        project_path: '',
+    }
+    //TODO: add outher frameworks
+}
 
 function configs(state=INITIAL_STATE,action){
-    switch(action){
-        case 'ADD_CONFIG_PATH':
-            return {...state,path:state};
-        case 'ADD_CONFIG_COMMAD':
-                return {...state,command:state};
+    console.log(state,action);
+    switch(action.type){
+        case 'CHANGE_TYPE':
+            return {...state,current_type:action.value}; 
         default:
             return state;
     }
