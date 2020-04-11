@@ -78,9 +78,22 @@ p {
     border: 0;
     border-radius: 6px;
     outline: none;
+    height: 31px;
     color: #fff;
 }
 
 .select-input option {
     color: #000;
 }
+
+.button-primary {
+    padding: 8px;
+    background: rgba(255,255,255,.10);
+    border: 0;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    height: 31px;
+    outline: none;
+  }
