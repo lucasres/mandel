@@ -10,8 +10,6 @@ const writeFile = util.promisify(fs.writeFile);
 const exec = util.promisify(process.exec);
 // const ipcRenderer = electron.ipcRenderer;
 
-
-
 const RunService = {
     exec: async (value) => {
         let config_state = store.getState();
@@ -27,9 +25,7 @@ const RunService = {
             throw new Error('not implemented');
         }
         let file_path = path.join(current_path, file_name);
-        console.log(value);
         await writeFile(file_path,value);
-        // let command = `cat ${file_path} | php /home/lucas/source/cev_flow/application/artisan tinker`;
         let command = current.command.replace('{file_path}',file_path);
         command = command.replace('{project_path}',current.project_path);
         let rs = await exec(command);

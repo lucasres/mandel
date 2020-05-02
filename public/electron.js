@@ -3,6 +3,7 @@ const ipc = electron.ipcMain;
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const process = require('child_process');
+const electron_store = require('electron-store');
 
 const path = require('path');
 const url = require('url');

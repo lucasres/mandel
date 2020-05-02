@@ -1,6 +1,10 @@
 import { createStore } from "redux";
+const electron_store = window.require('electron-store');
+const local_store = new electron_store;
 
-const INITIAL_STATE = {
+const INITIAL_STATE_FROM_LOCAL = local_store.get('states');
+
+const INITIAL_STATE = INITIAL_STATE_FROM_LOCAL ? INITIAL_STATE_FROM_LOCAL : {
     current_type: 'django',
     avaliable_types:['laravel','django'],
     code:'',
@@ -19,19 +23,22 @@ function configs(state=INITIAL_STATE,action){
     let newState = state;
     switch(action.type){
         case 'CHANGE_TYPE':
-            return {...state,current_type:action.value}; 
+            newState.current_type = action.value;
+            break;
         case 'CHANGE_COMMAND':
             newState[state.current_type].command = action.value;
-            return newState;
+            break;
         case 'CHANGE_PROJECT_PATH':
             newState[state.current_type].project_path = action.value;
-            return newState;
+            break;
         case 'CHANGE_CODE':
             newState.code = action.value;
-            return newState;
-        default:
-            return state;
+            break;
     }
+    if(action.save){
+        local_store.set('states',newState);
+    }
+    return newState;
 }
 
 const store = new createStore(configs);

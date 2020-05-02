@@ -20,13 +20,13 @@ export default function Config() {
 
     const handleSaveState = (e) => {
         if (type) {
-            dispatch({ type: 'CHANGE_TYPE', value: type });
+            dispatch({ type: 'CHANGE_TYPE', value: type, save: true });
         }
         if (command) {
-            dispatch({ type: 'CHANGE_COMMAND', value: command });
+            dispatch({ type: 'CHANGE_COMMAND', value: command, save: true });
         }
         if (projectPath) {
-            dispatch({ type: 'CHANGE_PROJECT_PATH', value: projectPath });
+            dispatch({ type: 'CHANGE_PROJECT_PATH', value: projectPath, save: true });
         }
     }
 
@@ -50,7 +50,7 @@ export default function Config() {
             <div className="row h100">
                 <div className="menu-settings">
                     <div className="title-content">
-                        <Link to="/">
+                        <Link to="/" onClick={()=>handleSaveState()}>
                             <FiArrowLeft className="icon" />
                         </Link>
                         <p className="title">Configurações</p>
