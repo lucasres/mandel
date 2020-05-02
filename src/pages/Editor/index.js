@@ -7,16 +7,17 @@ import "ace-builds/src-noconflict/mode-php";
 import "ace-builds/src-noconflict/mode-python";
 import RunService from "../../services/run";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import './styles.css';
 
 export default function Editor() {
     const config = useSelector(state => state);
-    const [code, setCode] = useState('');
     const [result, setResult] = useState('');
     const [type, setType] = useState(config.current_type);
     const [mode,setMode] = useState('');
+    const dispatch = useDispatch();
+    const [code, setCode] = useState(config.code);
 
     const handleExec = () => {
         let rs = RunService.exec(code);
@@ -32,13 +33,18 @@ export default function Editor() {
     useEffect(()=>{
         if(type==='laravel'){
             setMode('php');
-            setCode(`<?php\n\t`);
+            setCode(`<?php\n\t${code}`);
         }
         if(type==='django'){
             setMode('python');
-            setCode(``);
+            setCode(`${code}`);
         }
     },[type]);
+
+    const handleChangeCode = (e) => {
+        setCode(e);
+        dispatch({type:'CHANGE_CODE',value:e});
+    }
 
     return (
         <div className="wrapper">
@@ -67,7 +73,7 @@ export default function Editor() {
                         showPrintMargin={true}
                         highlightActiveLine={true}
                         value={code}
-                        onChange={(value)=>setCode(value)}
+                        onChange={(value)=>handleChangeCode(value)}
                         setOptions={{
                             enableBasicAutocompletion: true,
                             enableLiveAutocompletion: true,
